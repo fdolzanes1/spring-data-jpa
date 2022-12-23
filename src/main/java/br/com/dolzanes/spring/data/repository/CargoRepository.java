@@ -7,5 +7,5 @@ import br.com.dolzanes.spring.data.model.Cargo;
 
 @Repository
 public interface CargoRepository extends CrudRepository<Cargo, Integer> {
-
+	
 }
