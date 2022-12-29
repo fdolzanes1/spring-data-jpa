@@ -10,6 +10,6 @@ import br.com.dolzanes.spring.data.model.Department;
 @Repository
 public interface DepartmentRepository extends CrudRepository<Department, Integer> {
 	
-	List<Department> findByDescriptionContaining(String description);
-	
+	// List<Department> findByDescriptionContaining(String description);
+	List<Department> findByDescription(String description);
 }

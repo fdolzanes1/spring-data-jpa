@@ -4,13 +4,13 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import br.com.dolzanes.spring.data.dto.DepartmentDTO;
 import br.com.dolzanes.spring.data.model.Department;
 import br.com.dolzanes.spring.data.repository.DepartmentRepository;
 
-@Component
+@Service
 public class DepartmentService {
 
 	@Autowired 
@@ -28,7 +28,8 @@ public class DepartmentService {
 	}
 	
 	public List<Department> getCargosByDescricao(DepartmentDTO dto) {
-		return (List<Department>) repository.findByDescriptionContaining(dto.getDescription());
+		// return (List<Department>) repository.findByDescriptionContaining(dto.getDescription());
+		return (List<Department>) repository.findByDescription(dto.getDescription());
 	}
 	
 	public Department getDepartmentById(int id) {
