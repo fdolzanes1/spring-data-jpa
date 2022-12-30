@@ -1,5 +1,8 @@
 package br.com.dolzanes.spring.data.service;
 
+import static org.mockito.Mockito.CALLS_REAL_METHODS;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 import br.com.dolzanes.spring.data.dto.EmployeeDTO;
 import br.com.dolzanes.spring.data.model.Employee;
 import br.com.dolzanes.spring.data.repository.EmployeeRepository;
+import br.com.dolzanes.spring.data.repository.EmployeeRepository.EmployeeRepositoryDTO;
 
 @Service
 public class EmployeeService {
@@ -19,7 +23,7 @@ public class EmployeeService {
 	@Autowired 
 	private EmployeeRepository repository;
 	
-	public Employee create(EmployeeDTO dto) {
+	public Employee create(Employee dto) {
 		Employee employee = new Employee();
 		employee.setName(dto.getName());
 		employee.setEmail(dto.getEmail());
@@ -30,12 +34,16 @@ public class EmployeeService {
 		return repository.save(employee);
 	}
 	
-	public List<Employee> getNameLike(EmployeeDTO dto) {
+	public List<Employee> getNameLike(Employee dto) {
 		return (List<Employee>) repository.findByNameContaining(dto.getName());
 	}
 	
 	public Page<Employee> getAllEmployees(Integer page, Integer size) {
 		Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
 		return (Page<Employee>) repository.findAll(pageable);
+	}
+	
+	public List<EmployeeRepositoryDTO> findEmployeeSalary() {
+	     return (List<EmployeeRepositoryDTO>) repository.findEmployeeSalary(); 
 	}
 }

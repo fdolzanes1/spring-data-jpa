@@ -1,18 +1,14 @@
 package br.com.dolzanes.spring.data.dto;
 
-import java.time.LocalDate;
-
+import lombok.AllArgsConstructor;
 import lombok.Getter;
-import lombok.Setter;
+import lombok.NoArgsConstructor;
 
-@Setter
 @Getter
 public class EmployeeDTO {
 	
+	private Integer Id;	
 	private String name;
-	private String email;
-	private Integer age;
 	private Double salary;
-	private LocalDate dateHiring;
 
 }

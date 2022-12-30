@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.dolzanes.spring.data.dto.EmployeeDTO;
 import br.com.dolzanes.spring.data.model.Employee;
+import br.com.dolzanes.spring.data.repository.EmployeeRepository.EmployeeRepositoryDTO;
 import br.com.dolzanes.spring.data.service.EmployeeService;
 
 @CrossOrigin(origins = "http://localhost:8080")
@@ -27,7 +28,7 @@ public class EmployeeController {
 	private EmployeeService employeeService;
 	
 	@PostMapping
-    public ResponseEntity<Employee> postEmployee(@RequestBody EmployeeDTO dto) {
+    public ResponseEntity<Employee> postEmployee(@RequestBody Employee dto) {
 		try {
 			Employee employee = employeeService.create(dto);
             return ResponseEntity.status(HttpStatus.OK).body(employee);
@@ -37,7 +38,7 @@ public class EmployeeController {
     }
 	
 	@GetMapping("/name")
-	public ResponseEntity<List<Employee>> getNameLike(@RequestBody EmployeeDTO dto) {
+	public ResponseEntity<List<Employee>> getNameLike(@RequestBody Employee dto) {
 		try {
 			List<Employee> employee = employeeService.getNameLike(dto);
             return ResponseEntity.status(HttpStatus.OK).body(employee);
@@ -50,6 +51,17 @@ public class EmployeeController {
 	public ResponseEntity<Page<Employee>> getAllEmployees(@RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "5") Integer size) {
 		try {
 			Page<Employee> employee = employeeService.getAllEmployees(page, size);
+            return ResponseEntity.status(HttpStatus.OK).body(employee);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+	}
+	
+	@GetMapping("/salaries")
+	public ResponseEntity<List<EmployeeRepositoryDTO>> getEmployeeSalary() {
+		try {
+			List<EmployeeRepositoryDTO> employee = employeeService.findEmployeeSalary();
+			System.out.println(employee);
             return ResponseEntity.status(HttpStatus.OK).body(employee);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
