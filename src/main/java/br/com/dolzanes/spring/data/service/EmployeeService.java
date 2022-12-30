@@ -3,6 +3,10 @@ package br.com.dolzanes.spring.data.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import br.com.dolzanes.spring.data.dto.EmployeeDTO;
@@ -28,5 +32,10 @@ public class EmployeeService {
 	
 	public List<Employee> getNameLike(EmployeeDTO dto) {
 		return (List<Employee>) repository.findByNameContaining(dto.getName());
+	}
+	
+	public Page<Employee> getAllEmployees(Integer page, Integer size) {
+		Pageable pageable = PageRequest.of(page, size, Sort.unsorted());
+		return (Page<Employee>) repository.findAll(pageable);
 	}
 }
