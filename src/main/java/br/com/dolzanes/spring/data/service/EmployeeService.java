@@ -35,7 +35,7 @@ public class EmployeeService {
 	}
 	
 	public Page<Employee> getAllEmployees(Integer page, Integer size) {
-		Pageable pageable = PageRequest.of(page, size, Sort.unsorted());
+		Pageable pageable = PageRequest.of(page, size, Sort.by("name").ascending());
 		return (Page<Employee>) repository.findAll(pageable);
 	}
 }
