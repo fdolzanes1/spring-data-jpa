@@ -67,5 +67,15 @@ public class EmployeeController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
 	}
+	
+	@GetMapping("/specification")
+	public ResponseEntity<List<Employee>> getNameSpecification(@RequestBody Employee dto) {
+		try {
+			List<Employee> employee = employeeService.getSpecification(dto);
+            return ResponseEntity.status(HttpStatus.OK).body(employee);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+	}
 
 }

@@ -10,12 +10,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import br.com.dolzanes.spring.data.dto.EmployeeDTO;
 import br.com.dolzanes.spring.data.model.Employee;
 import br.com.dolzanes.spring.data.repository.EmployeeRepository;
 import br.com.dolzanes.spring.data.repository.EmployeeRepository.EmployeeRepositoryDTO;
+import br.com.dolzanes.spring.data.specification.EmployeeSpecification;
 
 @Service
 public class EmployeeService {
@@ -46,4 +48,12 @@ public class EmployeeService {
 	public List<EmployeeRepositoryDTO> findEmployeeSalary() {
 	     return (List<EmployeeRepositoryDTO>) repository.findEmployeeSalary(); 
 	}
+	
+	public List<Employee> getSpecification(Employee dto) {
+		return (List<Employee>) repository.findAll(Specification.where(
+													EmployeeSpecification.likeName(dto.getName())
+													.or(EmployeeSpecification.likeEmail(dto.getEmail()))
+													));
+	}
+
 }
